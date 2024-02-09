@@ -19,7 +19,7 @@ function PhoneLogin() {
         ref={webviewRef}
         onNavigationStateChange={onNavigationStateChange}
         source={{
-          uri: `http://127.0.0.1:5173/login?step=1`,
+          uri: `http://127.0.0.1:3000/login?step=1`,
         }}
         originWhitelist={['*']}
         style={{ flex: 1 }}

@@ -4,13 +4,25 @@ import RequiredScreen from '../screen/login/RequiredScreen';
 import SignupScreen from '../screen/login/SignupScreen';
 import KakaoLoginScreen from '../screen/login/KakaoLoginScreen';
 import NaverLoginScreen from '../screen/login/NaverLoginScreen';
-// import Tabs from './Tab';
+import Tabs from './Tab';
 import PhoneLoginScreen from '../screen/login/PhoneLoginScreen';
+import { useGlobalState } from '../store/useGlobalState';
+import { useLayoutEffect } from 'react';
+import { getStorage, setStorage } from '../common/common';
 
 const Stack = createNativeStackNavigator();
 
 function Stacks() {
-  const isLogined = false;
+  const [isLogined, setIsLogined] = useGlobalState(state => [state.isLogined, state.setIsLogined]);
+
+  const onLoginCheck = async () => {
+    const isLogin = await getStorage('isLogin');
+    setIsLogined(isLogin);
+    setStorage('isLogin', 'false');
+  };
+  useLayoutEffect(() => {
+    onLoginCheck();
+  }, [isLogined]);
   return (
     <Stack.Navigator
       initialRouteName={'Main'}
@@ -18,8 +30,10 @@ function Stacks() {
         headerShown: false,
       }}
     >
-      {false ? (
-        <></>
+      {isLogined === 'true' ? (
+        <>
+          <Stack.Screen name='Main' component={Tabs} />
+        </>
       ) : (
         <>
           <Stack.Screen name='Login' options={{ headerShown: false }} component={LoginScreen} />

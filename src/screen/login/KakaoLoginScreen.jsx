@@ -9,7 +9,7 @@ import { insertBeforeLast, setStorage } from '../../common/common';
 import Header from '../../common/ui/Header';
 import theme from '../../style/theme';
 
-const REDIRECT_URI = 'http://127.0.0.1:5173/oauth/kakao/callback';
+const REDIRECT_URI = 'http://127.0.0.1:3000/oauth/kakao/callback';
 function KakaoLoginScreen() {
   const navigation = useNavigation();
   const [setIsLogined] = useGlobalState(state => [state.setIsLogined], shallow);
@@ -31,12 +31,16 @@ function KakaoLoginScreen() {
           if (data.type === 'gotoMain') {
             setStorage('isLogin', 'true');
             setIsLogined('true');
+            navigation.dispatch(insertBeforeLast('Main'));
+            navigation.goBack();
           }
           if (data.type === 'gotoSignup') {
             const params = {
-              loginType: data.loginType,
-              snsId: data.snsId,
+              login_type: data.login_type,
+              sns_id: data.sns_id,
+              user_id: data.user_id,
             };
+            alert(JSON.stringify(params));
             navigation.dispatch(insertBeforeLast('Signup', { isOauth: 1, ...params }));
             navigation.goBack();
           }

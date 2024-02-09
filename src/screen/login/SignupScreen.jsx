@@ -5,11 +5,11 @@ import { useGlobalState } from '../../store/useGlobalState';
 import { useDeviceBack } from '../../hooks/useDeviceBack';
 import Header from '../../common/ui/Header';
 import { jsonParse, setStorage } from '../../common/common';
-import theme from '../../style/theme'
+import theme from '../../style/theme';
 
 function SignupScreen() {
   const setIsLogined = useGlobalState(state => state.setIsLogined);
-  const { isOauth = '0', loginType, snsId, tab = '약관동의' } = useRoute().params;
+  const { isOauth = '0', login_type, sns_id, user_id, step = 'terms' } = useRoute().params;
   const { webviewRef, script, onNavigationStateChange, androidState, onPressHardwareBackButton } = useDeviceBack();
 
   return (
@@ -19,7 +19,7 @@ function SignupScreen() {
         ref={webviewRef}
         onNavigationStateChange={onNavigationStateChange}
         source={{
-          uri: `http://127.0.0.1:5173/signup?tab=${tab}&isOauth=${isOauth}&loginType=${loginType}&snsId=${snsId}`,
+          uri: `http://127.0.0.1:3000/signup?step=${step}&isOauth=${isOauth}&login_type=${login_type}&sns_id=${sns_id}&user_id=${user_id}`,
         }}
         originWhitelist={['*']}
         style={{ flex: 1 }}
@@ -28,7 +28,6 @@ function SignupScreen() {
         onMessage={({ nativeEvent: state }) => {
           androidState(state);
           const data = jsonParse(state?.data);
-          console.log(data);
           if (data?.type === 'gotoMain') {
             setStorage('isLogin', 'true');
             setIsLogined('true');

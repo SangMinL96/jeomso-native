@@ -7,9 +7,9 @@ import { useGlobalState } from '../../store/useGlobalState';
 import { useDeviceBack } from '../../hooks/useDeviceBack';
 import { insertBeforeLast, setStorage } from '../../common/common';
 import Header from '../../common/ui/Header';
-import theme from '../../style/theme'
+import theme from '../../style/theme';
 
-const REDIRECT_URI = 'http://127.0.0.1:5173/oauth/naver/callback';
+const REDIRECT_URI = 'http://127.0.0.1:3000/oauth/naver/callback';
 const client_id = 'pEuR3XekXKWueOARFkYa';
 const incodeState = 'ZWlnaHRuYXZlcmxvZ2lu';
 function NaverLoginScreen() {
@@ -33,11 +33,15 @@ function NaverLoginScreen() {
           if (data.type === 'gotoMain') {
             setStorage('isLogin', 'true');
             setIsLogined('true');
+            alert('gomain');
+            navigation.dispatch(insertBeforeLast('Main'));
+            navigation.goBack();
           }
           if (data.type === 'gotoSignup') {
             const params = {
-              loginType: data.loginType,
-              snsId: data.snsId,
+              login_type: data.login_type,
+              sns_id: data.sns_id,
+              user_id: data.user_id,
             };
             navigation.dispatch(insertBeforeLast('Signup', { isOauth: 1, ...params }));
             navigation.goBack();
