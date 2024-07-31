@@ -33,9 +33,6 @@ function NaverLoginScreen() {
           if (data.type === 'gotoMain') {
             setStorage('isLogin', 'true');
             setIsLogined('true');
-            alert('gomain');
-            navigation.dispatch(insertBeforeLast('Main'));
-            navigation.goBack();
           }
           if (data.type === 'gotoSignup') {
             const params = {

@@ -4,7 +4,7 @@ function HomeScrenn() {
   return (
     <SafeAreaView>
       <TouchableOpacity>
-        <Text>홈</Text>
+        <Text>홈??</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

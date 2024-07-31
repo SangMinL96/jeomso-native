@@ -31,8 +31,6 @@ function KakaoLoginScreen() {
           if (data.type === 'gotoMain') {
             setStorage('isLogin', 'true');
             setIsLogined('true');
-            navigation.dispatch(insertBeforeLast('Main'));
-            navigation.goBack();
           }
           if (data.type === 'gotoSignup') {
             const params = {
@@ -40,7 +38,6 @@ function KakaoLoginScreen() {
               sns_id: data.sns_id,
               user_id: data.user_id,
             };
-            alert(JSON.stringify(params));
             navigation.dispatch(insertBeforeLast('Signup', { isOauth: 1, ...params }));
             navigation.goBack();
           }
