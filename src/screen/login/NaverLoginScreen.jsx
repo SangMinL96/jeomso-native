@@ -32,6 +32,7 @@ function NaverLoginScreen() {
           const data = JSON.parse(nativeEvent.data);
           if (data.type === 'gotoMain') {
             setStorage('isLogin', 'true');
+            console.log('test');
             setIsLogined('true');
           }
           if (data.type === 'gotoSignup') {
